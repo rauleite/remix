@@ -5,12 +5,12 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "deploy": "wrangler publish",
-    "dev": "concurrently 'npm:dev:*'",
+    "dev": "concurrently 'npm:build' 'npm:dev:*'",
     "dev:remix": "remix watch",
     "dev:miniflare": "cross-env NODE_ENV=development miniflare ./build/index.js --watch",
-    "start": "cross-env NODE_ENV=production miniflare ./build/index.js",
+    "start": "concurrently --group 'npm:build' 'cross-env NODE_ENV=production miniflare ./build/index.js'",
     "test": "playwright test",
+    "deploy": "wrangler publish",
     "typecheck": "tsc",
     "log": "concurrently 'npm:log:*'",
     "log:deploy": "wrangler tail"

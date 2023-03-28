@@ -1,7 +1,7 @@
 export default function Index() {
   return (
     <div className="py-16 px-4 max-w-screen-md mx-auto w-full">
-      <h1 className="text-4xl font-bold mb-6">Welcome to Remix 10</h1>
+      <h1 className="text-4xl font-bold mb-6">Welcome to Remix 16</h1>
       <ul className="list-disc grid gap-2 px-4.5">
         <li>
           <a
