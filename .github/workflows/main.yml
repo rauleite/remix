@@ -18,14 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    #
     # # - name: Cache Node Modules
     # #   uses: actions/cache@v3
     # #   with:
     # #     path: ~/.npm
     # #     key: node-modules-${{ hashFiles('package-lock.json') }}
-    #
-    #
+    
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
@@ -47,17 +45,17 @@ jobs:
     # #   with:
     # #     path: ~/.cache/ms-playwright
     # #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-    #
-    # - name: Setup Playwright
-    #   # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-    #   run: npx --workspace=${{ env.NAME }} playwright install --with-deps 
-    #
+    
+    - name: Setup Playwright
+      # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+      run: npx --workspace=${{ env.NAME }} playwright install --with-deps 
+    
     - name: Build 
       run: npm --workspace=${{ env.NAME }} run build 
     
-    # - name: Tests
-    #   run: npm --workspace=${{ env.NAME }} run test
-    #   
+    - name: Tests
+      run: npm --workspace=${{ env.NAME }} run test
+       
     # # - name: (CACHE) Store Artifacts from Failed Tests
     # #   if: failure()
     # #   uses: actions/upload-artifact@v2
