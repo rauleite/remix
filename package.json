@@ -19,7 +19,7 @@
   "devDependencies": {
     "dotenv-cli": "^7.1.0",
     "eslint": "^7.32.0",
-    "turbo": "^1.8.5"
+    "turbo": "^1.8.6"
   },
   "packageManager": "npm@8.19.3"
 }

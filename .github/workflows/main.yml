@@ -17,55 +17,55 @@ jobs:
       NAME: remix
     runs-on: ubuntu-latest
     steps:
-
-
-    # - name: Cache Node Modules
-    #   uses: actions/cache@v3
+    #
+    #
+    # # - name: Cache Node Modules
+    # #   uses: actions/cache@v3
+    # #   with:
+    # #     path: ~/.npm
+    # #     key: node-modules-${{ hashFiles('package-lock.json') }}
+    #
+    #
+    # - uses: actions/checkout@v3
+    # - uses: actions/setup-node@v3
     #   with:
-    #     path: ~/.npm
-    #     key: node-modules-${{ hashFiles('package-lock.json') }}
-
-
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: =${{ env.NODE_V }}
-        cache: 'npm'
-
-    - name: Install Dependencies
-      run: npm --workspace=${{ env.NAME }} ci
-
-    # - name: (CACHE) Store Playwright's Version
-    #   run: |
-    #     PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
-    #     echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-    #     echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-
-    # - name: (CACHE) Cache Playwright Browsers for Playwright's Version
-    #   id: cache-playwright-browsers
-    #   uses: actions/cache@v3
-    #   with:
-    #     path: ~/.cache/ms-playwright
-    #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
-
-    - name: Setup Playwright
-      # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-      run: npx --workspace=${{ env.NAME }} playwright install --with-deps 
-
-    - name: Build 
-      run: npm --workspace=${{ env.NAME }} run build 
-
-    - name: Tests
-      run: npm --workspace=${{ env.NAME }} run test
-      
-    # - name: (CACHE) Store Artifacts from Failed Tests
-    #   if: failure()
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: test-results
-    #     path: test-results/
-    #     retention-days: 7
-
+    #     node-version: =${{ env.NODE_V }}
+    #     cache: 'npm'
+    #
+    # - name: Install Dependencies
+    #   run: npm --workspace=${{ env.NAME }} ci
+    #
+    # # - name: (CACHE) Store Playwright's Version
+    # #   run: |
+    # #     PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
+    # #     echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+    # #     echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+    #
+    # # - name: (CACHE) Cache Playwright Browsers for Playwright's Version
+    # #   id: cache-playwright-browsers
+    # #   uses: actions/cache@v3
+    # #   with:
+    # #     path: ~/.cache/ms-playwright
+    # #     key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+    #
+    # - name: Setup Playwright
+    #   # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+    #   run: npx --workspace=${{ env.NAME }} playwright install --with-deps 
+    #
+    # - name: Build 
+    #   run: npm --workspace=${{ env.NAME }} run build 
+    #
+    # - name: Tests
+    #   run: npm --workspace=${{ env.NAME }} run test
+    #   
+    # # - name: (CACHE) Store Artifacts from Failed Tests
+    # #   if: failure()
+    # #   uses: actions/upload-artifact@v2
+    # #   with:
+    # #     name: test-results
+    # #     path: test-results/
+    # #     retention-days: 7
+    
     # Deployment ---------------------------------------------
     - name: Deployment
       uses: cloudflare/wrangler-action@2.0.0
