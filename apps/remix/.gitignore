@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store/
+
+/.cache
+/build
+/dist
+/public/build
+/.mf
+.env
+
+test-results
+playwright-report
+
+.turbo

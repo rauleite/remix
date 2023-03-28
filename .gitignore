@@ -1,0 +1,9 @@
+node_modules
+.pnpm-store/
+
+/.cache
+/dist
+/.mf
+.env
+
+.turbo

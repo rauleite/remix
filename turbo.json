@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "outputs": [
+        "build/**"
+      ]
+    },
+    "build#remix": {
+      "outputs": [
+        "./build",
+        "./public",
+        "!.cache"
+      ]
+    },
+    "start": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {},
+    "deploy": {},
+    "log": {}
+  }
+}

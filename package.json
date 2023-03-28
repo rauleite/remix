@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "FORCE_COLOR=1 turbo run build",
+    "dev": "FORCE_COLOR=1 turbo run dev",
+    "start": "FORCE_COLOR=1 turbo run start",
+    "test": "FORCE_COLOR=1 turbo run test",
+    "deploy": "FORCE_COLOR=1 turbo run deploy",
+    "lint": "FORCE_COLOR=1 turbo run lint",
+    "clean": "FORCE_COLOR=1 turbo run clean",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "log": "FORCE_COLOR=1 turbo run log"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.1.0",
+    "eslint": "^7.32.0",
+    "turbo": "^1.8.5"
+  },
+  "packageManager": "npm@8.19.3"
+}

@@ -1,0 +1,19 @@
+name = "remix"
+
+workers_dev = true
+main = "./build/index.js"
+# main = "./apps/remix/build/index.js"
+compatibility_date = "2023-03-26"
+ 
+# Default as of	2022-11-30
+# https://developers.cloudflare.com/workers/platform/compatibility-dates/#streams-constructors
+# compatibility_flags = ["streams_enable_constructors"]
+[env.production.vars]
+# NODE_VERSION = "18.15.0"
+
+[site]
+  bucket = "./public"
+
+# [build]
+#   command = "npm run build"
+
