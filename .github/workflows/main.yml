@@ -26,15 +26,15 @@ jobs:
     # #     key: node-modules-${{ hashFiles('package-lock.json') }}
     #
     #
-    # - uses: actions/checkout@v3
-    # - uses: actions/setup-node@v3
-    #   with:
-    #     node-version: =${{ env.NODE_V }}
-    #     cache: 'npm'
-    #
-    # - name: Install Dependencies
-    #   run: npm --workspace=${{ env.NAME }} ci
-    #
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: =${{ env.NODE_V }}
+        cache: 'npm'
+    
+    - name: Install Dependencies
+      run: npm --workspace=${{ env.NAME }} ci
+    
     # # - name: (CACHE) Store Playwright's Version
     # #   run: |
     # #     PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
@@ -52,9 +52,9 @@ jobs:
     #   # if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
     #   run: npx --workspace=${{ env.NAME }} playwright install --with-deps 
     #
-    # - name: Build 
-    #   run: npm --workspace=${{ env.NAME }} run build 
-    #
+    - name: Build 
+      run: npm --workspace=${{ env.NAME }} run build 
+    
     # - name: Tests
     #   run: npm --workspace=${{ env.NAME }} run test
     #   
