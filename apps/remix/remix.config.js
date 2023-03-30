@@ -14,6 +14,8 @@ module.exports = {
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
   // watchPaths: ["./app/styles/uno.css"]
+  watchPaths: ["./tailwind.config.js"],
+
   future: {
     unstable_tailwind: true,
   },
