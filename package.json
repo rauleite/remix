@@ -19,7 +19,9 @@
   "devDependencies": {
     "dotenv-cli": "^7.1.0",
     "eslint": "^7.32.0",
-    "turbo": "^1.8.6"
+    "turbo": "^1.8.8"
   },
-  "packageManager": "npm@8.19.3"
+  "dependencies": {
+    "remix-utils": "^6.0.0"
+  }
 }

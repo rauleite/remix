@@ -1,181 +1,92 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { ActionArgs, LoaderArgs, createCookie, json, redirect } from '@remix-run/cloudflare'
+import { LoaderArgs, createCookie, json } from '@remix-run/cloudflare'
 import { useBeforeUnload, useLoaderData } from "@remix-run/react";
+import { useState } from 'react';
+import { Age } from '~/utils';
+import { CookieNames, getCookie, setCookie } from '~/utils/cookie';
 
-// -- -- -- -- -- -- -- -- -- -- 
-//
-// const useUnload = fn => {
-//   const cb = useRef(fn); // init with fn, so that type checkers won't assume that current might be undefined
-//
-//   useEffect(() => {
-//     cb.current = fn;
-//   }, [fn]);
-//
-//   useEffect(() => {
-//     const onUnload = (...args) => cb.current?.(...args);
-//
-//     window.addEventListener("beforeunload", onUnload);
-//
-//     return () => window.removeEventListener("beforeunload", onUnload);
-//   }, []);
-// };
+import prometheus from 'prom-client'
 
-// -- -- -- -- -- -- -- -- -- -- 
+// Define your custom metrics
 
-const year = 365 * 24 * 60 * 60
-const userPrefs = createCookie("user-prefs", {
-  maxAge: 20 * year,
-});
+// const httpRequestDurationMicroseconds = new prometheus.Histogram({
+//   name: 'http_request_duration_ms',
+//   help: 'Duration of HTTP requests in ms',
+//   labelNames: ['method', 'code'],
+//   buckets: [0.1, 5, 15, 50, 100, 500]
+// });
 
-const getCookie = async (request) => {
+// Register the metrics with the Prometheus registry
+// prometheus.collectDefaultMetrics();
+
+const getCookies = async (request: Request) => {
   const cookieHeader = request.headers.get("Cookie");
-  const cookie =
-    (await userPrefs.parse(cookieHeader)) || {};
+  console.log("cookieHeader", cookieHeader)
+  // const cookie = await partnerThemeCookie.parse(cookieHeader);
+  const partnerThemeCookie = createCookie(CookieNames.PartnerTheme)
+  const cookie = await partnerThemeCookie.parse(cookieHeader);
   return cookie
 }
 
+// enum Form {
+//   DataTheme = "data-theme",
+//   IsDark = "isDark"
+// }
+
+type Loader = {
+  dataTheme: string,
+  isDark: boolean
+}
+
 export async function loader({ request }: LoaderArgs) {
-  // const cookieHeader = request.headers.get("Cookie");
-  // const cookie =
-  //   (await userPrefs.parse(cookieHeader)) || {};
-  const cookie = getCookie(request)
-  return json({ dataTheme: cookie.dataTheme, dark: cookie.dark });
-}
-
-export async function action({ request }: ActionArgs) {
-  // const cookieHeader = request.headers.get("Cookie");
-  // const cookie =
-  //   (await userPrefs.parse(cookieHeader)) || {};
-  const cookie = getCookie(request)
-  const bodyParams = await request.formData();
-
-  console.log('bodyParams.get("dark")', bodyParams.get("dark"))
-  console.log('bodyParams.get("data-theme")', bodyParams.get("data-theme"))
-  console.log('bodyParams', bodyParams)
-  // if (bodyParams.get("bannerVisibility") === "hidden") {
-  //   cookie.showBanner = false;
-  // }
-
-  return redirect("/", {
-    headers: {
-      "Set-Cookie": await userPrefs.serialize(cookie),
-    },
-  });
-}
-
-// -- -- -- -- -- -- -- -- -- -- 
-
-const isBrowser = typeof document !== 'undefined' || typeof window !== 'undefined';
-
-const parseBoolean = (value: string): string | boolean => {
-  if (value === 'true') {
-    return true
-  }
-  if (value === 'false') {
-    return false
-  }
-  return value
-}
-
-type getItemReturn = string | boolean | undefined
-
-const getItem = (key: string): getItemReturn => {
-  console.log('isBrowser', isBrowser)
-  // undefined if render is on Server
-  if (!isBrowser) {
-    return
-  }
-  // null if not has the key
-  const item = localStorage.getItem(key)
-  // if not has key, localStorage returns null, but this function return 'undefined'
-  if (item === null) {
-    return
-  }
-  return parseBoolean(item)
-}
-
-const setItem = (key: string, item: string) => {
-  if (!isBrowser) {
-    return
-  }
-  localStorage.setItem(key, item);
-}
-
-const useLocalStorage = (key: string): [getItemReturn, Function] => {
-  const [state, setState] = useState(getItem(key));
-  const setStorage = (item: string) => {
-    setItem(key, item)
-    setState(item);
-  }
-  return [state, setStorage];
-}
-
-// -- -- -- -- -- -- -- -- -- -- 
-export default function Index() {
-  // Post
-  const { dark, dataTheme } = useLoaderData<typeof loader>();
-
-  const [selectedItem, setSelectedItem] = useLocalStorage("data-theme")
-  const [isDark, setDark] = useLocalStorage("dark")
-
-  // useUnload(e => {
-  //   e.preventDefault();
-  //   e.returnValue = '';
-  //   console.log('exit')
+  // const end = httpRequestDurationMicroseconds.startTimer();
+  console.log("loader()")
+  const cookie = await getCookies(request)
+  console.log("cookie", cookie)
+  const theme: Loader = { dataTheme: cookie?.dataTheme, isDark: cookie?.isDark }
+  const jsonTest = json(theme)
+  // console.log("jsonTest", jsonTest)
+  // end({
+  //   code: '200',
+  //   method: request.method,
+  //   // route: request.r
   // });
+  return jsonTest;
+}
 
-  // save it off before the automatic page reload
+// const partnerThemeCookie = { maxAge: 20 * Age.DayInSec }
+
+export default function Index() {
+  const { dataTheme: dataThemeLoader, isDark: isDarkLoader } = useLoaderData<typeof loader>();
+  const [dataTheme, setDataTheme] = useState(dataThemeLoader)
+  const [isDark, setIsDark] = useState(isDarkLoader)
+
   useBeforeUnload(
-    // useCallback(async () => {
-    (async () => {
-      console.log('useBeforeUnload():useCallback()')
-      // localStorage.stuff = state;
+    async () => {
+      console.log('### useBeforeUnload() ###')
+      await setCookie(
+        CookieNames.PartnerTheme,
+        { dataTheme, isDark },
+        { maxAge: (1 * Age.YearInSec) }
+      )
+    })
 
-      // redirect("/", {
-      redirect(location.pathname, {
-        headers: {
-          "Set-Cookie": await userPrefs.serialize({ dataTheme: selectedItem, dark: isDark }),
-        },
-      });
+  // log({ isDark })
+  // log({ dataTheme })
 
-      // const response = await fetch(location.pathname, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   // body: JSON.stringify({ dados: 'aqui' }),
-      // });
-    }/*, [state]*/)()
-  );
-
-  // read it in when they return
-  useEffect(() => {
-    console.log('useEffect()')
-    // if (state === null && localStorage.stuff != null) {
-    //   setState(localStorage.stuff);
-    // }
-  }, /*[state]*/);
-
-  console.log('dark', dark)
-  console.log('dataTheme', dataTheme)
-  console.log('selectedItem', selectedItem)
-  console.log('isDark', isDark)
+  // Log.info(isDark)
+  // log({ dataTheme })
 
   const handleChange = (e) => {
-    setSelectedItem(e.target.value)
+    setDataTheme(e.target.value)
   }
   const handleIsDark = (e) => {
-    let isChecked = e.target.checked
-    setDark(isChecked)
+    setIsDark(e.target.checked)
   }
-  enum Theme {
-    Dark = 'dark'
-  }
-  const darkClass = isDark ? Theme.Dark : ''
 
+  const darkClass = isDark ? 'dark' : ''
   return (
     <>
-      <div className={darkClass} data-theme={selectedItem || 'red'}>
+      <div className={darkClass} data-theme={dataTheme || 'red'}>
         <div className="wrapper mt-16 px-8">
           <div className="themed-background bg-skin-fill mx-auto max-w-[50rem] rounded-xl  shadow-md">
             <div className="px-4 pt-4">
@@ -188,8 +99,8 @@ export default function Index() {
               <select
                 id="themes"
                 className="block w-full cursor-pointer rounded-lg border p-2.5 text-sm outline-transparent"
-                value={selectedItem}
-                // defaultValue={selectedItem}
+                value={dataTheme}
+                // defaultValue={dataTheme}
                 onChange={handleChange}
               >
                 <option value="blue">Blue</option>
@@ -236,5 +147,4 @@ export default function Index() {
       </div>
     </>
   );
-
 }
