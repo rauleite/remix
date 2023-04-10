@@ -5,6 +5,53 @@ addEventListener(
   "fetch",
   createEventHandler({ build, mode: process.env.NODE_ENV })
 );
+// // import { performance } from 'node:perf_hooks';
+// // import { performance } from 'perf_hooks';
+// // const { performance } = worker;
+//
+// // import { performance } from 'performance';
+// // globalThis.performance = {
+// // performance = {
+// //   now: function() {
+// //     return Date.now();
+// //   }
+// // };
+// // //
+// // /* document-load.ts|js file - the code snippet is the same for both the languages */
+// import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+// // import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load';
+// // import { ZoneContextManager } from '@opentelemetry/context-zone';
+// // import { registerInstrumentations } from '@opentelemetry/instrumentation';
+// //
+// const provider = new WebTracerProvider();
+// //
+// // provider.register({
+// //   // Changing default contextManager to use ZoneContextManager - supports asynchronous operations - optional
+// //   contextManager: new ZoneContextManager(),
+// // });
+// //
+// // // Registering instrumentations
+// // registerInstrumentations({
+// //   instrumentations: [new DocumentLoadInstrumentation()],
+// // });
+//
+// // const e = createEventHandler({ build, mode: process.env.NODE_ENV })
+// // e(event => {
+// //   console.log('event', event)
+// // })
+// // console.log('performance', performance)
+//
+// // const window = {
+// // performance = self.performance
+// // performance = globalThis
+// // performance = {
+// //   now: Date.now
+// // }
+// // }
+// console.log('globalThis', globalThis)
+// console.log('self', self)
+// console.log('global', global)
+// console.log('performance', performance)
 // import prometheus from 'prom-client'
 
 // import {

@@ -11,13 +11,17 @@
     "build": "remix build",
     "dev": "concurrently 'npm:dev:*'",
     "dev:remix": "remix watch",
-    "dev:miniflare": "cross-env NODE_ENV=development miniflare ./build/index.js --watch",
+    "dev:wrangler": "cross-env NODE_ENV=development wrangler dev ./build/index.js --local",
+    "devOLD:miniflare2": "cross-env NODE_ENV=development miniflare ./build/index.js --watch",
+    "startOLD": "npm run build && cross-env NODE_ENV=production miniflare ./build/index.js",
     "start": "npm run build && cross-env NODE_ENV=production miniflare ./build/index.js",
     "test": "playwright test",
     "deploy": "wrangler publish",
     "typecheck": "tsc",
     "log": "concurrently 'npm:log:*'",
-    "log:deploy": "wrangler tail"
+    "log:deploy": "wrangler tail",
+    "clean": "rimraf .cache public/build",
+    "clean:modules": "rimraf node_modules"
   },
   "dependencies": {
     "@remix-run/cloudflare": "^1.14.3",
@@ -30,7 +34,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230321.0",
+    "@cloudflare/workers-types": "^3",
     "@playwright/test": "^1.32.1",
     "@remix-run/dev": "^1.14.3",
     "@remix-run/eslint-config": "^1.14.3",

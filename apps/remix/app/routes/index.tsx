@@ -1,10 +1,8 @@
 import { LoaderArgs, createCookie, json } from '@remix-run/cloudflare'
 import { useBeforeUnload, useLoaderData } from "@remix-run/react";
 import { useState } from 'react';
-import { Age } from '~/utils';
+import { Age, isBrowser } from '~/utils';
 import { CookieNames, getCookie, setCookie } from '~/utils/cookie';
-
-import prometheus from 'prom-client'
 
 // Define your custom metrics
 
@@ -60,6 +58,12 @@ export default function Index() {
   const [dataTheme, setDataTheme] = useState(dataThemeLoader)
   const [isDark, setIsDark] = useState(isDarkLoader)
 
+  if (isBrowser) {
+
+    console.log('globalthis', globalThis)
+    // console.log('p', performance)
+
+  }
   useBeforeUnload(
     async () => {
       console.log('### useBeforeUnload() ###')

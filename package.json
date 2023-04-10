@@ -12,16 +12,15 @@
     "test": "FORCE_COLOR=1 turbo run test",
     "deploy": "FORCE_COLOR=1 turbo run deploy",
     "lint": "FORCE_COLOR=1 turbo run lint",
-    "clean": "FORCE_COLOR=1 turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "log": "FORCE_COLOR=1 turbo run log"
+    "log": "FORCE_COLOR=1 turbo run log",
+    "clean": "FORCE_COLOR=1 turbo run clean",
+    "clean:modules": "rimraf node_modules package-lock.json && FORCE_COLOR=1 turbo run clean:modules"
   },
   "devDependencies": {
     "dotenv-cli": "^7.1.0",
     "eslint": "^7.32.0",
+    "rimraf": "^4.4.1",
     "turbo": "^1.8.8"
-  },
-  "dependencies": {
-    "remix-utils": "^6.0.0"
   }
 }
