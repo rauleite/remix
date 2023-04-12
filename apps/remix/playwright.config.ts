@@ -1,12 +1,25 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
+enum BASE_URL {
+  'localhost' = 'localhost',
+  'remote' = '192.168.0.101'
+}
+
 const PORT = process.env.PORT || 8787;
 
-const baseURL = `http://localhost:${PORT}`;
+let url
+if (process.env.CI === 'true') {
+  url = BASE_URL.localhost
+} else {
+  url = BASE_URL.remote
+}
+
+const baseURL = `http://${url}:${PORT}`;
+console.log('baseURL', baseURL)
 
 const commands = {
-  build: "npm --workspace=remix run build",
+  // build: "npm --workspace=remix run build",
   dev: "npm --workspace=remix run dev"
 }
 
@@ -20,8 +33,7 @@ const commands = {
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-
-  testDir: "./e2e",
+  // testDir: "./tests",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -40,7 +52,7 @@ const config: PlaywrightTestConfig = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  // reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
@@ -51,30 +63,29 @@ const config: PlaywrightTestConfig = {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
-
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
-    },
-
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-      },
-    },
-
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
-  ],
+  // projects: [
+  //   {
+  //     name: "chromium",
+  //     use: {
+  //       ...devices["Desktop Chrome"],
+  //     },
+  //   },
+  //
+  //   {
+  //     name: "firefox",
+  //     use: {
+  //       ...devices["Desktop Firefox"],
+  //     },
+  //   },
+  //
+  //   {
+  //     name: "webkit",
+  //     use: {
+  //       ...devices["Desktop Safari"],
+  //     },
+  //   },
+  // ],
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   // outputDir: 'test-results/',
 

@@ -3,15 +3,16 @@ module.exports = {
   devServerBroadcastDelay: 1000,
   ignoredRouteFiles: ["./**/.*"],
   server: "./worker/index.ts",
-
-  serverConditions: ["worker"],
   serverDependenciesToBundle: "all",
   serverMainFields: ["browser", "module", "main"],
+  serverConditions: ["worker"],
+  // serverConditions: ["worker", "browser", "module"],
+  // serverConditions: ["node"],
   serverMinify: true,
   serverModuleFormat: "esm",
-  serverPlatform: "neutral",
+  // serverPlatform: "neutral",
+  serverPlatform: "node",
   watchPaths: ["./tailwind.config.js"],
-
   future: {
     unstable_tailwind: true,
   },

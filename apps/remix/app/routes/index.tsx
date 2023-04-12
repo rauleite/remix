@@ -1,20 +1,9 @@
 import { LoaderArgs, createCookie, json } from '@remix-run/cloudflare'
 import { useBeforeUnload, useLoaderData } from "@remix-run/react";
+import Layout from 'components/Layout';
 import { useState } from 'react';
 import { Age, isBrowser } from '~/utils';
 import { CookieNames, getCookie, setCookie } from '~/utils/cookie';
-
-// Define your custom metrics
-
-// const httpRequestDurationMicroseconds = new prometheus.Histogram({
-//   name: 'http_request_duration_ms',
-//   help: 'Duration of HTTP requests in ms',
-//   labelNames: ['method', 'code'],
-//   buckets: [0.1, 5, 15, 50, 100, 500]
-// });
-
-// Register the metrics with the Prometheus registry
-// prometheus.collectDefaultMetrics();
 
 const getCookies = async (request: Request) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -25,19 +14,13 @@ const getCookies = async (request: Request) => {
   return cookie
 }
 
-// enum Form {
-//   DataTheme = "data-theme",
-//   IsDark = "isDark"
-// }
-
 type Loader = {
   dataTheme: string,
   isDark: boolean
 }
 
 export async function loader({ request }: LoaderArgs) {
-  // const end = httpRequestDurationMicroseconds.startTimer();
-  console.log("loader()")
+  console.log("index::loader()")
   const cookie = await getCookies(request)
   console.log("cookie", cookie)
   const theme: Loader = { dataTheme: cookie?.dataTheme, isDark: cookie?.isDark }
@@ -59,10 +42,8 @@ export default function Index() {
   const [isDark, setIsDark] = useState(isDarkLoader)
 
   if (isBrowser) {
-
     console.log('globalthis', globalThis)
     // console.log('p', performance)
-
   }
   useBeforeUnload(
     async () => {
@@ -89,11 +70,12 @@ export default function Index() {
 
   const darkClass = isDark ? 'dark' : ''
   return (
-    <>
+    <Layout>
       <div className={darkClass} data-theme={dataTheme || 'red'}>
         <div className="wrapper mt-16 px-8">
           <div className="themed-background bg-skin-fill mx-auto max-w-[50rem] rounded-xl  shadow-md">
             <div className="px-4 pt-4">
+              <h1>Welcome</h1>
               <label
                 htmlFor="themes"
                 className="themed-label text-skin-base mb-2 block text-center text-sm font-medium "
@@ -149,6 +131,6 @@ export default function Index() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
