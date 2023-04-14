@@ -1,5 +1,4 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
-import { devices } from "@playwright/test";
 
 enum BASE_URL {
   'localhost' = 'localhost',
@@ -20,7 +19,7 @@ console.log('baseURL', baseURL)
 
 const commands = {
   // build: "npm --workspace=remix run build",
-  dev: "npm --workspace=remix run dev"
+  dev: "npm --workspace=remix run start"
 }
 
 /**
@@ -63,32 +62,6 @@ const config: PlaywrightTestConfig = {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
-  /* Configure projects for major browsers */
-  // projects: [
-  //   {
-  //     name: "chromium",
-  //     use: {
-  //       ...devices["Desktop Chrome"],
-  //     },
-  //   },
-  //
-  //   {
-  //     name: "firefox",
-  //     use: {
-  //       ...devices["Desktop Firefox"],
-  //     },
-  //   },
-  //
-  //   {
-  //     name: "webkit",
-  //     use: {
-  //       ...devices["Desktop Safari"],
-  //     },
-  //   },
-  // ],
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
-
   /* Run your local dev server before starting the tests */
   webServer: {
     // command: process.env.CI ? `${commands.build} && ${commands.dev}` : commands.dev,

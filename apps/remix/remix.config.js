@@ -15,6 +15,10 @@ module.exports = {
   watchPaths: ["./tailwind.config.js"],
   future: {
     unstable_tailwind: true,
+    v2_routeConvention: true,
+    v2_meta: true,
+    v2_normalizeFormMethod: true,
+    v2_errorBoundary: true,
   },
 };
 // serverBuildPath: "./dist/worker.js",

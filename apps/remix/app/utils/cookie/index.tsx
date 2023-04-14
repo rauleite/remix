@@ -46,13 +46,13 @@ const createCookieName = (key: CookieNamesType): Cookie => {
   return cookie.instance
 }
 
-export const getCookie = async (key: CookieNamesType) => {
-  if (!isBrowser) {
-    return null
-  }
-  const cookie = createCookieName(key)
-  return (await cookie.parse(document.cookie)) || {};
-}
+// export const getCookie = async (key: CookieNamesType) => {
+//   if (!isBrowser) {
+//     return null
+//   }
+//   const cookie = createCookieName(key)
+//   return (await cookie.parse(document.cookie)) || {};
+// }
 
 export const setCookie = async <T,>(key: CookieNamesType, item: T, cookieOpt?: CookieOptions) => {
   if (!isBrowser) {
@@ -62,6 +62,15 @@ export const setCookie = async <T,>(key: CookieNamesType, item: T, cookieOpt?: C
   // const serialized = (await cookie.serialize(item, cookieOpt)) || {};
   const serialized = await cookie.serialize(item, cookieOpt)
   document.cookie = serialized ?? {}
+}
+
+export const getCookies = async (request: Request) => {
+  const cookieHeader = request.headers.get("Cookie");
+  console.log("cookieHeader", cookieHeader)
+  // const cookie = await partnerThemeCookie.parse(cookieHeader);
+  const partnerThemeCookie = createCookie(CookieNames.PartnerTheme)
+  const cookie = await partnerThemeCookie.parse(cookieHeader);
+  return cookie
 }
 
 // export const useCookie = (key: CookieNames, cookieOpt?: CookieOptions) => {
