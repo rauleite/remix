@@ -1,4 +1,4 @@
-import { BrowserContext, Cookie, expect, test } from "@playwright/test";
+import { BrowserContext, expect, test } from "@playwright/test";
 import { ThemeCookieName } from "~/utils/cookie";
 
 const hasPartnerTheme = async (context: BrowserContext) => {
