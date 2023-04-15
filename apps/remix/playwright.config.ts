@@ -68,7 +68,8 @@ const config: PlaywrightTestConfig = {
     command: commands.dev,
     url: baseURL,
     timeout: 3 * 60 * 1000,
-    reuseExistingServer: !process.env.CI,
+    // reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 };
 export default config;

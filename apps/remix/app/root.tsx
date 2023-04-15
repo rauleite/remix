@@ -1,4 +1,9 @@
-import { LinkDescriptor, LinksFunction, LoaderArgs, json, V2_MetaFunction } from "@remix-run/cloudflare";
+import type { LinkDescriptor, LinksFunction, LoaderArgs, V2_MetaFunction } from "@remix-run/cloudflare";
+import type { ChangeEvent } from "react";
+import type { Loader, ThemeContext } from "./utils/types";
+
+import { useState } from "react";
+import { json } from "@remix-run/cloudflare";
 import { useBeforeUnload, useLoaderData } from "@remix-run/react";
 import {
   Links,
@@ -9,11 +14,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import stylesheet from "~/tailwind.css";
 import { CookieNames, getCookies, setCookie } from "./utils/cookie";
-import { Loader, ThemeContext } from "./utils/types";
 import { Age } from "./utils";
-import { ChangeEvent, useState } from "react";
+
+import stylesheet from "~/tailwind.css";
 
 /**
  * Returns an array of link objects to be included in the HTML head element.
@@ -115,12 +119,12 @@ export default function Root() {
   const dataThemeDefault = 'red'
 
   return (
-    <html className={darkClass} data-theme={dataTheme || dataThemeDefault}>
+    <html className={darkClass} >
       <head>
         <Meta />
         <Links />
       </head>
-      <body>
+      <body data-theme={dataTheme || dataThemeDefault}>
         <Outlet context={theme} />
         <ScrollRestoration />
         <Scripts />

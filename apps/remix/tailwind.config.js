@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
-  // darkMode: "class",
+  darkMode: "class",
   theme: {
     extend: {
       textColor: {
@@ -14,6 +14,7 @@ module.exports = {
       backgroundColor: {
         skin: {
           fill: "rgb(var(--color-fill))",
+          fillb: "rgb(var(--color-fill-black))",
           button: "var(--color-button-base)",
         },
       },

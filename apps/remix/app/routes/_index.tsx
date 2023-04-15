@@ -1,6 +1,7 @@
 import { useOutletContext } from '@remix-run/react';
-import { ThemeContext } from '~/utils/types';
+import type { ThemeContext } from '~/utils/types';
 
+// <div className="themed-background bg-skin-fill dark:bg-skin-fillb mx-auto max-w-[50rem] rounded-xl  shadow-md">
 export default function Card() {
   const { dataTheme, setTheme, isDark, toggleDark } = useOutletContext<ThemeContext>()
   return (
