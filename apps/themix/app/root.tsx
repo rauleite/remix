@@ -17,14 +17,16 @@ import {
 import { CookieNames, getCookies, setCookie } from "./utils/cookie";
 import { Age } from "./utils";
 
-import stylesheet from "~/tailwind.css";
+// import stylesheet from "~/tailwind.css";
+import stylesheetRoot from "~/styles/root.css";
 
 /**
  * Returns an array of link objects to be included in the HTML head element.
  * @returns An array of link objects.
  */
 export const links: LinksFunction = (): LinkDescriptor[] => [
-  { rel: "stylesheet", href: stylesheet },
+  // { rel: "stylesheet", href: stylesheet },
+  { rel: "stylesheet", href: stylesheetRoot },
   //   { rel: "stylesheet", href: reset },
   //   { rel: "stylesheet", href: uno },
 ];
@@ -119,7 +121,7 @@ export default function Root() {
   const dataThemeDefault = 'red'
 
   return (
-    <html className={darkClass} >
+    <html className={`${darkClass}`} >
       <head>
         <Meta />
         <Links />

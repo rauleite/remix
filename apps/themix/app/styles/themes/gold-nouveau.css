@@ -3,8 +3,11 @@
 
 /* https://fonts.google.com/specimen/Quicksand?query=Quicksand */
 
+/* @tailwind base; */
+
 /* =~= Gold Nouveau =~= */
-:root {
+/* :root { */
+[data-theme='gold-nouveau'] {
 	/* =~= Theme Properties =~= */
 	--theme-font-family-base: system-ui, sans-serif;
 	--theme-font-family-heading: 'Quicksand', sans-serif;
@@ -100,7 +103,7 @@
 	--color-surface-800: 35 22 49; /* ⬅ #231631 */
 	--color-surface-900: 18 11 24; /* ⬅ #120b18 */
 }
-
+/* } */
 /* =~= Gold Nouveau (dark mode overrides) =~= */
 .dark [data-theme='gold-nouveau'] {
 	/* =~= Theme On-X Colors =~= */

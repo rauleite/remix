@@ -1,8 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
 
-/* @layer base { */
+@layer base {
   :root {
     --color-text-base: #4f46e5; /* bg-indigo-600 */
     --color-text-muted: #1f2937; /* bg-gray-800 */
@@ -11,7 +11,8 @@
     --color-button-base: #4f46e5; /*bg-indigo-600 */
   }
   
-  [data-theme='blue'], [data-theme='blue'] .light {
+  [data-theme='blue'], 
+  [data-theme='blue'] .light {
     --color-text-base: #fff;
     --color-text-muted: #bfdbfe;
     --color-fill: 30 64 175; /*#1e40af*/
@@ -43,5 +44,6 @@
     --color-fill: #6b21a8;
     --color-text-inverted: #7e22ce;
     --color-button-base: #fff;
+    --test-test: #000
   }
-/* } */
+}
