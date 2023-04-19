@@ -14,7 +14,7 @@ jobs:
     env:
       # Match with Cloudflare Workers Node version
       NODE_V: 16.19.1
-      NAME: remix
+      NAME: themix
     runs-on: ubuntu-latest
     steps:
 
