@@ -12,7 +12,7 @@ module.exports = {
   serverModuleFormat: "esm",
   // serverPlatform: "neutral",
   serverPlatform: "node",
-  watchPaths: ["./tailwind.config.js"],
+  watchPaths: ["./tailwind.config.ts"],
   future: {
     unstable_postcss: true,
     unstable_tailwind: true,

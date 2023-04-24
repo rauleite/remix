@@ -19,8 +19,8 @@ function generatePaletteShades(colorName: string) {
 }
 
 // Generate a a color shade palette 50-900 per each color available
-exports = () => {
+export default (() => {
   const paletteObj: Pallete = {};
   COLOR.names.forEach((n) => (paletteObj[n] = generatePaletteShades(n)));
   return paletteObj;
-};
+})();

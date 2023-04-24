@@ -1,12 +1,13 @@
 import { useOutletContext } from '@remix-run/react';
 import type { ThemeContext } from '~/utils/types';
 
+// <div className="themed-background bg-token-primary-50 mx-auto max-w-[50rem] rounded-xl  shadow-md">
 // <div className="themed-background bg-skin-fill dark:bg-skin-fillb mx-auto max-w-[50rem] rounded-xl  shadow-md">
 export default function Card() {
   const { dataTheme, setTheme, isDark, toggleDark } = useOutletContext<ThemeContext>()
   return (
     <div className="wrapper mt-16 px-8">
-      <div className="themed-background bg-skin-fill mx-auto max-w-[50rem] rounded-xl  shadow-md">
+      <div className="themed-background bg-surface-50-900-token mx-auto max-w-[50rem] rounded-xl  shadow-md">
         <div className="px-4 pt-4">
           <h1>Welcome</h1>
           <label
@@ -25,6 +26,7 @@ export default function Card() {
             <option value="blue">Blue</option>
             <option value="red">Red</option>
             <option value="purple">Purple</option>
+            <option value="gold-nouveau">gold-nouveau</option>
           </select>
           <br />
           <label

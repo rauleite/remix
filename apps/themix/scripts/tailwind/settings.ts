@@ -1,4 +1,36 @@
-export const COLOR = {
+/**
+ * Represents a color pairing with light and dark shades.
+ * @property light - The light shade of the color.
+ * @property dark - The dark shade of the color.
+ */
+export type ColorPairing = {
+  light: number;
+  dark: number;
+};
+
+/**
+ * Represents a color with its names, shades, and color pairings.
+ * @property names - The names of the color.
+ * @property shades - The shades of the color.
+ * @property pairings - The color pairings associated with the color.
+ */
+export type Color = {
+  names: string[];
+  shades: number[];
+  pairings: ColorPairing[];
+};
+
+const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
+
+const pairings = () => {
+
+  return []
+}
+
+/**
+ * COLOR object containing color-related constants.
+ */
+export const COLOR: Color = {
   names: [
     'primary',
     'secondary',
@@ -8,7 +40,7 @@ export const COLOR = {
     'error',
     'surface'
   ],
-  shades: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900],
+  shades,
   pairings: [
     // forward:
     { light: 50, dark: 900 },
@@ -23,5 +55,4 @@ export const COLOR = {
     { light: 600, dark: 300 },
     { light: 500, dark: 400 }
   ]
-
 }

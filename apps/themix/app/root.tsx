@@ -118,7 +118,7 @@ export default function Root() {
    * The CSS class for the dark mode if enabled.
    */
   const darkClass: string = isDark ? 'dark' : ''
-  const dataThemeDefault = 'red'
+  const dataThemeDefault = 'gold-nouveau'
 
   return (
     <html className={`${darkClass}`} >
