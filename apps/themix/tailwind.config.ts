@@ -5,14 +5,37 @@ import themeColors from './scripts/tailwind/color'
 import type { PluginAPI } from 'tailwindcss/types/config'
 import backgrounds from './scripts/tailwind/tokens/backgrounds'
 import { inspect } from 'util'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
 console.log('themeColors', themeColors)
 
 const utilities = ({ addUtilities, matchUtilities, theme }: PluginAPI) => {
   addUtilities({
     // '.bg-primary-backdrop-token': { 'background-color': `rgb(var(--color-primary-400) / ${0.5})` },
-    ...backgrounds,
+    // ...backgrounds,
   })
+  matchUtilities(
+    {
+      'bg': (value) => {
+        console.log('value', inspect(value, { depth: 0 }))
+        return {
+          'background-color': `${value}`
+          // 'background-color': `${typeof value === 'function' ? value : value}`
+          // 'bg-token': function(value) {
+          // console.log('value', value)
+        }
+      },
+    },
+    {
+      values: flattenColorPalette(theme('colors')),
+      type: ['color', 'any'],
+      // values: flattenColorPalette(themeColors),
+      // values: themeColors,
+      // values: theme('colors'),
+      // type: ['color']
+      // type: 'color'
+    },
+  )
   // matchUtilities({
   //   // 'background-color': `rgb(var(--color-${name}-${shade})${backdropAlpha ? ' / ' + backdropAlpha : ''})`
   //   'bg-token': (value) => {

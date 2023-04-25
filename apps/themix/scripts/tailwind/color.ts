@@ -14,11 +14,13 @@ type Pallete = {
 // ex: `50: 'rgb(var(--color-primary-50) / <alpha-value>)'`
 function generatePaletteShades(colorName: string) {
   const shadeObj: Shade = {};
-  COLOR.shades.forEach((s) => (shadeObj[s] = `rgb(var(--color-${colorName}-${s}) / <alpha-value>)`));
+  // COLOR.shades.forEach((shade) => (shadeObj[shade] = `rgb(var(--color-${colorName}-${shade}) / <alpha-value>)`));
+  COLOR.shades.forEach((shade) => (shadeObj[shade] = `rgb(var(--color-${colorName}-${shade}))`));
+  // COLOR.shades.forEach((shade) => (shadeObj[shade] = withOpacity(colorName, shade)));
   return shadeObj;
 }
 
-// Generate a a color shade palette 50-900 per each color available
+// Generate a color shade palette 50-900 per each color available
 export default (() => {
   const paletteObj: Pallete = {};
   COLOR.names.forEach((n) => (paletteObj[n] = generatePaletteShades(n)));

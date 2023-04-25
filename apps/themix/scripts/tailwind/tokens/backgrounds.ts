@@ -20,7 +20,7 @@ type Classes = {
  */
 const backgroundColor = (name: string, shade: number, backdropAlpha?: number) => {
   return {
-    'background-color': `rgb(var(--color-${name}-${shade})${backdropAlpha ? ' / ' + backdropAlpha : ''})`
+    'background-color': `rgb(var(--color-${name}-${shade})${backdropAlpha ? ' / ' + backdropAlpha : 1})`
   }
 }
 
