@@ -3,16 +3,17 @@ import type { ThemeContext } from '~/utils/types';
 
 // <div className="themed-background bg-token-primary-50 mx-auto max-w-[50rem] rounded-xl  shadow-md">
 // <div className="themed-background bg-skin-fill dark:bg-skin-fillb mx-auto max-w-[50rem] rounded-xl  shadow-md">
+// bg-[#ff0000]/100
 export default function Card() {
   const { dataTheme, setTheme, isDark, toggleDark } = useOutletContext<ThemeContext>()
   return (
     <div className="wrapper mt-16 px-8">
-      <div className="themed-background bg-surface-200 dark:bg-surface-500/50 bg-surface-50-900-token mx-auto max-w-[50rem] rounded-xl  shadow-md">
+      <div className="bg-surface-200 dark:bg-token-surface-500/50">
         <div className="px-4 pt-4">
           <h1>Welcome</h1>
           <label
             htmlFor="themes"
-            className="themed-label text-skin-base mb-2 block text-center text-sm font-medium "
+            className="mb-2 block text-center text-sm font-medium "
           >
             CHOOSE A THEME
           </label>

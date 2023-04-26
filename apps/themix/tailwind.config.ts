@@ -6,6 +6,7 @@ import type { PluginAPI } from 'tailwindcss/types/config'
 import backgrounds from './scripts/tailwind/tokens/backgrounds'
 import { inspect } from 'util'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
+// import { parseColor } from 'tailwindcss/lib/util/color'
 
 console.log('themeColors', themeColors)
 
@@ -18,8 +19,11 @@ const utilities = ({ addUtilities, matchUtilities, theme }: PluginAPI) => {
     {
       'bg': (value) => {
         console.log('value', inspect(value, { depth: 0 }))
+        // const color = parseColor(value)
+        // console.log('color', color)
         return {
           'background-color': `${value}`
+          // 'background-color': `${color}`
           // 'background-color': `${typeof value === 'function' ? value : value}`
           // 'bg-token': function(value) {
           // console.log('value', value)
@@ -57,21 +61,7 @@ const config: Config = {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
       // { primary: { 50: 'rgb(var(--color-primary-50) / <alpha-value>)', ... }, ... }
       colors: themeColors,
-      textColor: {
-        skin: {
-          base: "var(--color-text-base)",
-          muted: "var(--color-text-muted)",
-          inverted: "var(--color-text-inverted)",
-          test: "var(--theme-font-family-base)"
-        },
-      },
-      backgroundColor: {
-        skin: {
-          fill: "rgb(var(--color-fill))",
-          fillb: "rgb(var(--color-fill-black))",
-          button: "var(--color-button-base)",
-        },
-      },
+      // textColor: themeTextColors,
     },
   },
   plugins: [
