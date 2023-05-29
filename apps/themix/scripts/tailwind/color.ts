@@ -17,12 +17,14 @@ function generatePaletteShades(colorName: string) {
   // COLOR.shades.forEach((shade) => (shadeObj[shade] = `rgb(var(--color-${colorName}-${shade}) / <alpha-value>)`));
   COLOR.shades.forEach((shade) => (shadeObj[shade] = `rgb(var(--color-${colorName}-${shade}))`));
   // COLOR.shades.forEach((shade) => (shadeObj[shade] = withOpacity(colorName, shade)));
+  // shadeObj.default = `rgb(var(--color-${colorName}))`
+  shadeObj.DEFAULT = `rgb(var(--color-${colorName}))`
   return shadeObj;
 }
 
 // Generate a color shade palette 50-900 per each color available
 export default (() => {
   const paletteObj: Pallete = {};
-  COLOR.names.forEach((n) => (paletteObj[n] = generatePaletteShades(n)));
+  COLOR.names.forEach((name) => (paletteObj[name] = generatePaletteShades(name)));
   return paletteObj;
 })();

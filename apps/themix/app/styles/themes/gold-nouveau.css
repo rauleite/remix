@@ -102,6 +102,7 @@
 	--color-surface-700: 60 39 84; /* ⬅ #3c2754 */
 	--color-surface-800: 35 22 49; /* ⬅ #231631 */
 	--color-surface-900: 18 11 24; /* ⬅ #120b18 */
+	--color-surface: var(--color-surface-500); /* ⬅ #744aa1 */
 }
 /* } */
 /* =~= Gold Nouveau (dark mode overrides) =~= */

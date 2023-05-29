@@ -2,14 +2,27 @@ import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import plugin from 'tailwindcss/plugin'
 import themeColors from './scripts/tailwind/color'
-import type { PluginAPI } from 'tailwindcss/types/config'
+// import themeTextColors from './scripts/tailwind/tokens/text
+import type { KeyValuePair, PluginAPI, PluginUtils, ValueType } from 'tailwindcss/types/config'
 import backgrounds from './scripts/tailwind/tokens/backgrounds'
 import { inspect } from 'util'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 // import { parseColor } from 'tailwindcss/lib/util/color'
 
 console.log('themeColors', themeColors)
+// const colorsValues = (theme) => {
+const colorsValues = (theme: PluginUtils['theme']): Partial<{ type: ValueType[], values: KeyValuePair<string, string> }> => {
+  return {
+    values: flattenColorPalette(theme('colors')),
+    type: ['color', 'any'],
+    // values: flattenColorPalette(themeColors),
+    // values: themeColors,
+    // values: theme('colors'),
+    // type: ['color']
+    // type: 'color'
 
+  }
+}
 const utilities = ({ addUtilities, matchUtilities, theme }: PluginAPI) => {
   addUtilities({
     // '.bg-primary-backdrop-token': { 'background-color': `rgb(var(--color-primary-400) / ${0.5})` },
@@ -25,20 +38,56 @@ const utilities = ({ addUtilities, matchUtilities, theme }: PluginAPI) => {
           'background-color': `${value}`
           // 'background-color': `${color}`
           // 'background-color': `${typeof value === 'function' ? value : value}`
-          // 'bg-token': function(value) {
           // console.log('value', value)
         }
       },
+      'bg-dark': (value) => {
+        console.log('value', inspect(value, { depth: 0 }))
+        // const color = parseColor(value)
+        // console.log('color', color)
+        return {
+          'background-color': `${value}`
+          // 'background-color': `${color}`
+          // 'background-color': `${typeof value === 'function' ? value : value}`
+          // console.log('value', value)
+        }
+      },
+      'bg-zustom': (value) => {
+        console.log('value', inspect(value, { depth: 0 }))
+        // const color = parseColor(value)
+        // console.log('color', color)
+        return {
+          'background-color': `${value}`
+          // 'background-color': `${color}`
+          // 'background-color': `${typeof value === 'function' ? value : value}`
+          // console.log('value', value)
+        }
+      },
+      'bg-zustom-dark': (value) => {
+        console.log('value', inspect(value, { depth: 0 }))
+        // const color = parseColor(value)
+        // console.log('color', color)
+        return {
+          'background-color': `${value}`
+          // 'background-color': `${color}`
+          // 'background-color': `${typeof value === 'function' ? value : value}`
+          // console.log('value', value)
+        }
+      },
+
     },
+    colorsValues(theme)
+  )
+  matchUtilities(
     {
-      values: flattenColorPalette(theme('colors')),
-      type: ['color', 'any'],
-      // values: flattenColorPalette(themeColors),
-      // values: themeColors,
-      // values: theme('colors'),
-      // type: ['color']
-      // type: 'color'
+      'text': (value) => {
+        console.log('value -> ', value)
+        return {
+          color: `rgb(var(--theme-font-color-${value}))`
+        }
+      }
     },
+    { values: theme('text') }
   )
   // matchUtilities({
   //   // 'background-color': `rgb(var(--color-${name}-${shade})${backdropAlpha ? ' / ' + backdropAlpha : ''})`
@@ -61,8 +110,16 @@ const config: Config = {
       sans: ['Inter', ...defaultTheme.fontFamily.sans],
       // { primary: { 50: 'rgb(var(--color-primary-50) / <alpha-value>)', ... }, ... }
       colors: themeColors,
+      text: {
+        base: 'base',
+        dark: 'dark'
+      }
+      // textColor: {
+      //   'base': 'bas'
+      // }
       // textColor: themeTextColors,
     },
+
   },
   plugins: [
     require('@tailwindcss/forms'),

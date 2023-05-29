@@ -1,26 +1,26 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 
 enum BASE_URL {
-  'localhost' = 'localhost',
-  'remote' = '192.168.0.101'
+  "localhost" = "localhost",
+  "remote" = "192.168.0.101",
 }
 
 const PORT = process.env.PORT || 8787;
 
-let url
-if (process.env.CI === 'true') {
-  url = BASE_URL.localhost
+let url;
+if (process.env.CI === "true") {
+  url = BASE_URL.localhost;
 } else {
-  url = BASE_URL.remote
+  url = BASE_URL.remote;
 }
 
 const baseURL = `http://${url}:${PORT}`;
-console.log('baseURL', baseURL)
+console.log("baseURL", baseURL);
 
 const commands = {
   // build: "npm --workspace=remix run build",
-  dev: "npm --workspace=remix run start"
-}
+  dev: "npm --workspace=themix run start",
+};
 
 /**
  * Read environment variables from file.
