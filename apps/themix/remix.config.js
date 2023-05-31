@@ -13,9 +13,9 @@ module.exports = {
   // serverPlatform: "neutral",
   serverPlatform: "node",
   watchPaths: ["./tailwind.config.ts", "./scripts/tailwind/*"],
+  postcss: true,
+  tailwind: true,
   future: {
-    unstable_postcss: true,
-    unstable_tailwind: true,
     v2_routeConvention: true,
     v2_meta: true,
     v2_normalizeFormMethod: true,
